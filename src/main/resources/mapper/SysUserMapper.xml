@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pyg.springsecurity.mapper.SysUserMapper">
+  <resultMap id="BaseResultMap" type="com.pyg.springsecurity.entity.SysUser">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="full_name" jdbcType="VARCHAR" property="fullName" />
+    <result column="enabled" jdbcType="BIT" property="enabled" />
+    <result column="account_non_locked" jdbcType="BIT" property="accountNonLocked" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, username, password, full_name, enabled, account_non_locked
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByUsername" parameterType="string" resultType="com.pyg.springsecurity.entity.SysUser">
+    select <include refid="Base_Column_List"/>
+    from sys_user
+    where username = #{username}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_user
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="com.pyg.springsecurity.entity.SysUser">
+    insert into sys_user (id, username, password, 
+      full_name, enabled, account_non_locked
+      )
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{fullName,jdbcType=VARCHAR}, #{enabled,jdbcType=BIT}, #{accountNonLocked,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pyg.springsecurity.entity.SysUser">
+    insert into sys_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="fullName != null">
+        full_name,
+      </if>
+      <if test="enabled != null">
+        enabled,
+      </if>
+      <if test="accountNonLocked != null">
+        account_non_locked,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="fullName != null">
+        #{fullName,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null">
+        #{enabled,jdbcType=BIT},
+      </if>
+      <if test="accountNonLocked != null">
+        #{accountNonLocked,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pyg.springsecurity.entity.SysUser">
+    update sys_user
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="fullName != null">
+        full_name = #{fullName,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null">
+        enabled = #{enabled,jdbcType=BIT},
+      </if>
+      <if test="accountNonLocked != null">
+        account_non_locked = #{accountNonLocked,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pyg.springsecurity.entity.SysUser">
+    update sys_user
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      full_name = #{fullName,jdbcType=VARCHAR},
+      enabled = #{enabled,jdbcType=BIT},
+      account_non_locked = #{accountNonLocked,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+</mapper>
